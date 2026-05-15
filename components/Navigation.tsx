@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +17,13 @@ export default function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems = [
+    { name: 'Services', path: '/services' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   return (
     <>
@@ -27,11 +36,23 @@ export default function Navigation() {
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex gap-6 lg:gap-9 list-none">
-          <li><Link href="#services" className="text-grey-energy text-sm font-medium tracking-[0.04em] uppercase hover:text-white-warm transition-colors">Services</Link></li>
-          <li><Link href="#projects" className="text-grey-energy text-sm font-medium tracking-[0.04em] uppercase hover:text-white-warm transition-colors">Projects</Link></li>
-          <li><Link href="#about" className="text-grey-energy text-sm font-medium tracking-[0.04em] uppercase hover:text-white-warm transition-colors">About</Link></li>
-          <li><Link href="#contact" className="text-grey-energy text-sm font-medium tracking-[0.04em] uppercase hover:text-white-warm transition-colors">Contact</Link></li>
-          <li><Link href="#contact" className="bg-amber-energy text-obsidian px-5 py-2.5 rounded font-bold text-sm hover:bg-[#f0b030] transition-colors">Get a Quote</Link></li>
+          {navItems.map((item) => (
+            <li key={item.name}>
+              <Link 
+                href={item.path}
+                className={`text-sm font-medium tracking-[0.04em] uppercase transition-colors ${
+                  pathname === item.path ? 'text-amber-energy' : 'text-grey-energy hover:text-white-warm'
+                }`}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link href="/contact#quote" className="bg-amber-energy text-obsidian px-5 py-2.5 rounded font-bold text-sm hover:bg-[#f0b030] transition-colors">
+              Get a Quote
+            </Link>
+          </li>
         </ul>
 
         {/* Mobile Menu Button */}
@@ -48,11 +69,23 @@ export default function Navigation() {
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="flex flex-col items-center justify-center h-full gap-8">
-          <Link href="#services" className="text-white-warm text-xl font-medium" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
-          <Link href="#projects" className="text-white-warm text-xl font-medium" onClick={() => setIsMobileMenuOpen(false)}>Projects</Link>
-          <Link href="#about" className="text-white-warm text-xl font-medium" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-          <Link href="#contact" className="text-white-warm text-xl font-medium" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-          <Link href="#contact" className="bg-amber-energy text-obsidian px-8 py-3 rounded font-bold" onClick={() => setIsMobileMenuOpen(false)}>Get a Quote</Link>
+          {navItems.map((item) => (
+            <Link 
+              key={item.name}
+              href={item.path} 
+              className={`text-xl font-medium ${pathname === item.path ? 'text-amber-energy' : 'text-white-warm'}`} 
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {item.name}
+            </Link>
+          ))}
+          <Link 
+            href="/contact#quote" 
+            className="bg-amber-energy text-obsidian px-8 py-3 rounded font-bold"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Get a Quote
+          </Link>
         </div>
       </div>
     </>

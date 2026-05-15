@@ -65,12 +65,36 @@ export default function Footer() {
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-t border-border-dark pt-6 md:pt-7 text-[0.7rem] md:text-[0.78rem] text-grey-energy">
         <span>© 2025 Fiysam Energy Services Ltd. All rights reserved.</span>
+        
+        {/* Social Media Links - Updated with real URLs */}
         <div className="flex gap-3 md:gap-4">
-          {['in', '𝕏', 'f'].map((social, index) => (
-            <div key={index} className="w-7 h-7 md:w-8 md:h-8 bg-card-bg border border-border-dark rounded flex items-center justify-center text-[0.8rem] cursor-pointer hover:border-amber-energy hover:text-amber-energy transition-colors">
-              {social}
-            </div>
-          ))}
+          <a 
+            href="https://linkedin.com/company/fiysam-energy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-7 h-7 md:w-8 md:h-8 bg-card-bg border border-border-dark rounded flex items-center justify-center text-[0.8rem] hover:border-amber-energy hover:text-amber-energy transition-colors"
+            aria-label="LinkedIn"
+          >
+            in
+          </a>
+          <a 
+            href="https://twitter.com/fiysamenergy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-7 h-7 md:w-8 md:h-8 bg-card-bg border border-border-dark rounded flex items-center justify-center text-[0.8rem] hover:border-amber-energy hover:text-amber-energy transition-colors"
+            aria-label="Twitter"
+          >
+            𝕏
+          </a>
+          <a 
+            href="https://facebook.com/fiysamenergy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-7 h-7 md:w-8 md:h-8 bg-card-bg border border-border-dark rounded flex items-center justify-center text-[0.8rem] hover:border-amber-energy hover:text-amber-energy transition-colors"
+            aria-label="Facebook"
+          >
+            f
+          </a>
         </div>
       </div>
     </footer>
