@@ -1,14 +1,39 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const services = [
-  { icon: '⚙️', title: 'Engineering & Design', description: 'FEED studies, detailed engineering, and technical design for upstream, midstream, and downstream energy infrastructure.' },
-  { icon: '🏗️', title: 'EPC Contracting', description: 'End-to-end engineering, procurement, and construction for oil & gas processing facilities, flow stations, and power plants.' },
-  { icon: '🔧', title: 'Pipeline Services', description: 'Pipeline design, installation, integrity inspection, repair, and corrosion management for onshore and offshore systems.' },
-  { icon: '⚡', title: 'Power Solutions', description: 'Design and installation of diesel, gas, and hybrid power generation systems for industrial and commercial clients.' },
-  { icon: '🛡️', title: 'HSE & Compliance', description: 'Health, Safety & Environment management, regulatory compliance, risk assessment, and site safety supervision.' },
-  { icon: '📦', title: 'Procurement & Logistics', description: 'Global sourcing, procurement, supply chain management, and logistics coordination for critical energy equipment.' },
+  { 
+    icon: '⚡', 
+    title: 'Power Solutions', 
+    description: 'Independent and embedded power generation, gas-fired and hybrid power plants, captive power solutions, and renewable energy integration.' 
+  },
+  { 
+    icon: '💧', 
+    title: 'Water Solutions', 
+    description: 'Potable and industrial water treatment, water distribution networks, desalination, wastewater treatment, recycling, and reuse.' 
+  },
+  { 
+    icon: '🔥', 
+    title: 'Gas Solutions', 
+    description: 'Natural gas supply and aggregation, CNG and LNG solutions, gas-to-power projects, and gas infrastructure development.' 
+  },
+  { 
+    icon: '🏗️', 
+    title: 'EPC Contracting', 
+    description: 'End-to-end engineering, procurement, and construction for power, water, and gas infrastructure projects.' 
+  },
+  { 
+    icon: '🔧', 
+    title: 'Operations & Maintenance', 
+    description: 'Comprehensive O&M services for power plants, water facilities, and gas infrastructure with 24/7 support.' 
+  },
+  { 
+    icon: '📦', 
+    title: 'Procurement & Logistics', 
+    description: 'Global sourcing, procurement, supply chain management, and logistics coordination for critical infrastructure equipment.' 
+  },
 ];
 
 export default function Services() {
@@ -17,10 +42,10 @@ export default function Services() {
       <div className="grid md:grid-cols-2 gap-6 md:gap-[60px] items-end mb-10 md:mb-[60px]">
         <div>
           <div className="section-label">What We Do</div>
-          <h2 className="section-title text-left">Integrated Energy Services, Built to Last</h2>
+          <h2 className="section-title text-left">Integrated Power, Water & Gas Solutions</h2>
         </div>
         <p className="section-sub text-sm md:text-base">
-          From initial engineering studies to full-scale construction and maintenance, we deliver complete energy solutions with precision and accountability.
+          We develop, finance, build, and operate critical infrastructure that supports industrial growth, urban development, and improved quality of life across Nigeria and West Africa.
         </p>
       </div>
 
@@ -42,6 +67,13 @@ export default function Services() {
             <span className="block mt-4 md:mt-6 text-amber-energy text-[1.2rem] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
           </motion.div>
         ))}
+      </div>
+
+      {/* View All Services Button - ADD THIS */}
+      <div className="text-center mt-12">
+        <Link href="/services" className="btn-primary inline-flex items-center gap-2">
+          View All Services <span>→</span>
+        </Link>
       </div>
     </section>
   );

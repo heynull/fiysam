@@ -3,7 +3,7 @@ import Link from 'next/link';
 const footerLinks = {
   services: ['Engineering & Design', 'EPC Contracting', 'Pipeline Services', 'Power Solutions', 'HSE & Compliance'],
   company: ['About Fiysam', 'Projects', 'Careers', 'Partners', 'News'],
-  contact: ['Port Harcourt Office', 'Lagos Liaison Office', 'Request a Quote', 'Emergency Line'],
+  contact: ['Plot 4 & 5, NERDC Road, CBD Ikeja Lagos', '4, Old Refinery Road off Woji, Port Harcour, Rivers State', 'Request a Quote', 'Emergency Line'],
 };
 
 export default function Footer() {

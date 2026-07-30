@@ -16,7 +16,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 text-[0.7rem] md:text-[0.75rem] font-medium tracking-[0.12em] uppercase text-amber-energy mb-4 md:mb-6 px-3.5 py-1.5 border border-amber-energy/30 rounded"
         >
           <span className="w-1.5 h-1.5 bg-amber-energy rounded-full animate-pulse-slow" />
-          Nigeria's Premier Energy Services Partner
+          Nigeria & West Africa's Integrated Infrastructure Partner
         </motion.div>
         
         <motion.h1 
@@ -36,7 +36,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-[0.95rem] md:text-[1.05rem] text-grey-energy leading-[1.6] md:leading-[1.7] mb-6 md:mb-11 font-light"
         >
-          Fiysam Energy Services delivers end-to-end engineering, procurement, and construction solutions for the oil, gas, and power sectors across West Africa.
+          Fiysam delivers sustainable power, clean water, and accessible gas infrastructure across Nigeria and West Africa — driving industrial growth and improving lives.
         </motion.p>
         
         <motion.div 

@@ -3,9 +3,9 @@
 import { useState } from 'react';
 
 const contactDetails = [
-  { icon: '📍', label: 'Office', value: 'Port Harcourt, Rivers State, Nigeria' },
+  { icon: '📍', label: 'Office', value: 'Plot 4&5 NERDC Road, Lagos, Nigeria' },
   { icon: '📞', label: 'Phone', value: '+234 800 000 0000' },
-  { icon: '✉️', label: 'Email', value: 'info@fiysamenergyservices.com' },
+  { icon: '✉️', label: 'Email', value: 'fiysamenergy@gmail.com' },
   { icon: '🕐', label: 'Hours', value: 'Mon–Fri, 8AM – 6PM WAT' },
 ];
 
@@ -18,15 +18,55 @@ export default function Contact() {
     service: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({
+    type: null,
+    message: '',
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear status when user starts typing again
+    if (submitStatus.type) {
+      setSubmitStatus({ type: null, message: '' });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your enquiry. We will respond within 24 hours.');
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: data.message || 'Thank you! We will respond within 24 hours.' });
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: '',
+        });
+      } else {
+        setSubmitStatus({ type: 'error', message: data.error || 'Something went wrong. Please try again.' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: 'Network error. Please check your connection and try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -59,9 +99,20 @@ export default function Contact() {
 
         {/* Contact Form */}
         <form onSubmit={handleSubmit} className="bg-card-bg border border-border-dark rounded-lg p-6 md:p-10 order-1 md:order-2">
+          {/* Success/Error Message */}
+          {submitStatus.type && (
+            <div className={`mb-4 p-3 rounded text-sm ${
+              submitStatus.type === 'success' 
+                ? 'bg-green-900/30 text-green-400 border border-green-700' 
+                : 'bg-red-900/30 text-red-400 border border-red-700'
+            }`}>
+              {submitStatus.message}
+            </div>
+          )}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
             <div className="form-group">
-              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">First Name</label>
+              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">First Name *</label>
               <input
                 type="text"
                 name="firstName"
@@ -70,10 +121,11 @@ export default function Contact() {
                 className="w-full bg-deep border border-border-dark rounded px-3 md:px-4 py-2 md:py-3 text-white-warm font-dm-sans text-[0.8rem] md:text-[0.875rem] outline-none focus:border-amber-energy transition-colors"
                 placeholder="John"
                 required
+                disabled={isSubmitting}
               />
             </div>
             <div className="form-group">
-              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Last Name</label>
+              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Last Name *</label>
               <input
                 type="text"
                 name="lastName"
@@ -82,13 +134,14 @@ export default function Contact() {
                 className="w-full bg-deep border border-border-dark rounded px-3 md:px-4 py-2 md:py-3 text-white-warm font-dm-sans text-[0.8rem] md:text-[0.875rem] outline-none focus:border-amber-energy transition-colors"
                 placeholder="Doe"
                 required
+                disabled={isSubmitting}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
             <div className="form-group">
-              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Email</label>
+              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Email *</label>
               <input
                 type="email"
                 name="email"
@@ -97,10 +150,11 @@ export default function Contact() {
                 className="w-full bg-deep border border-border-dark rounded px-3 md:px-4 py-2 md:py-3 text-white-warm font-dm-sans text-[0.8rem] md:text-[0.875rem] outline-none focus:border-amber-energy transition-colors"
                 placeholder="john@company.com"
                 required
+                disabled={isSubmitting}
               />
             </div>
             <div className="form-group">
-              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Phone</label>
+              <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Phone *</label>
               <input
                 type="tel"
                 name="phone"
@@ -109,31 +163,34 @@ export default function Contact() {
                 className="w-full bg-deep border border-border-dark rounded px-3 md:px-4 py-2 md:py-3 text-white-warm font-dm-sans text-[0.8rem] md:text-[0.875rem] outline-none focus:border-amber-energy transition-colors"
                 placeholder="+234 ..."
                 required
+                disabled={isSubmitting}
               />
             </div>
           </div>
 
           <div className="form-group mb-3 md:mb-4">
-            <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Service Required</label>
+            <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Service Required *</label>
             <select
               name="service"
               value={formData.service}
               onChange={handleChange}
               className="w-full bg-deep border border-border-dark rounded px-3 md:px-4 py-2 md:py-3 text-white-warm font-dm-sans text-[0.8rem] md:text-[0.875rem] outline-none focus:border-amber-energy transition-colors"
               required
+              disabled={isSubmitting}
             >
               <option value="">Select a service...</option>
-              <option>Engineering & Design</option>
-              <option>EPC Contracting</option>
-              <option>Pipeline Services</option>
               <option>Power Solutions</option>
-              <option>HSE & Compliance</option>
+              <option>Water Solutions</option>
+              <option>Gas Solutions</option>
+              <option>EPC Contracting</option>
+              <option>Operations & Maintenance</option>
               <option>Procurement & Logistics</option>
+              <option>Other</option>
             </select>
           </div>
 
           <div className="form-group mb-5 md:mb-6">
-            <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Project Details</label>
+            <label className="block text-[0.7rem] md:text-[0.78rem] font-medium tracking-[0.06em] uppercase text-grey-energy mb-1 md:mb-2">Project Details *</label>
             <textarea
               name="message"
               value={formData.message}
@@ -141,11 +198,23 @@ export default function Contact() {
               className="w-full bg-deep border border-border-dark rounded px-3 md:px-4 py-2 md:py-3 text-white-warm font-dm-sans text-[0.8rem] md:text-[0.875rem] outline-none focus:border-amber-energy transition-colors h-[100px] md:h-[120px] resize-none"
               placeholder="Briefly describe your project, location, and timeline..."
               required
+              disabled={isSubmitting}
             />
           </div>
 
-          <button type="submit" className="btn-primary w-full border-none cursor-pointer text-[0.9rem] md:text-[0.95rem] py-3 md:py-4">
-            Send Enquiry →
+          <button 
+            type="submit" 
+            className="btn-primary w-full border-none cursor-pointer text-[0.9rem] md:text-[0.95rem] py-3 md:py-4 flex items-center justify-center gap-2"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <span className="inline-block w-4 h-4 border-2 border-obsidian border-t-transparent rounded-full animate-spin"></span>
+                Sending...
+              </>
+            ) : (
+              'Send Enquiry →'
+            )}
           </button>
         </form>
       </div>

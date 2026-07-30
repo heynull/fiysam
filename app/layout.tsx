@@ -16,7 +16,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Fiysam Energy Services | Powering the Infrastructure of Tomorrow',
+  title: 'Fiysam | Powering the Infrastructure of Tomorrow',
   description: 'Nigeria\'s premier energy services partner delivering end-to-end engineering, procurement, and construction solutions for oil, gas, and power sectors.',
 }
 

@@ -35,13 +35,13 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="px-5 md:px-[60px] py-16 md:py-[100px] bg-deep">
+    <section id="projects" className="px-5 md:px-[60px] py-16 md:py-[10px] bg-deep">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 md:mb-12 gap-4">
         <div>
           <div className="section-label">Featured Work</div>
           <h2 className="section-title">Projects That Define Us</h2>
         </div>
-        <Link href="#" className="btn-ghost text-sm">View All Projects →</Link>
+        <Link href="/projects" className="btn-ghost text-sm">View All Projects →</Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr] gap-5">

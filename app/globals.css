@@ -86,3 +86,66 @@
   border-color: var(--color-amber-energy);
   color: var(--color-amber-energy);
 }
+
+/* Ticker Animation */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 10s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-in {
+  animation-duration: 200ms;
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+.zoom-in-95 {
+  animation-name: zoomIn;
+}
+
+/* Global button cursor styles */
+button,
+a[role="button"],
+.btn-primary,
+.btn-ghost,
+[class*="btn-"],
+button[type="submit"],
+input[type="submit"],
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Ensure navigation links have pointer cursor */
+nav a,
+nav button {
+  cursor: pointer;
+}
+
+/* Ensure all interactive elements have pointer */
+.interactive,
+.clickable,
+[onClick],
+[onClick] * {
+  cursor: pointer;
+}
