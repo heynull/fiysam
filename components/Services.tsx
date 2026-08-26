@@ -1,36 +1,37 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Droplets, Flame, HardHat, Package, Wrench, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 const services = [
   { 
-    icon: '⚡', 
+    icon: Zap,
     title: 'Power Solutions', 
     description: 'Independent and embedded power generation, gas-fired and hybrid power plants, captive power solutions, and renewable energy integration.' 
   },
   { 
-    icon: '💧', 
+    icon: Droplets,
     title: 'Water Solutions', 
     description: 'Potable and industrial water treatment, water distribution networks, desalination, wastewater treatment, recycling, and reuse.' 
   },
   { 
-    icon: '🔥', 
+    icon: Flame,
     title: 'Gas Solutions', 
     description: 'Natural gas supply and aggregation, CNG and LNG solutions, gas-to-power projects, and gas infrastructure development.' 
   },
   { 
-    icon: '🏗️', 
+    icon: HardHat,
     title: 'EPC Contracting', 
     description: 'End-to-end engineering, procurement, and construction for power, water, and gas infrastructure projects.' 
   },
   { 
-    icon: '🔧', 
+    icon: Wrench,
     title: 'Operations & Maintenance', 
     description: 'Comprehensive O&M services for power plants, water facilities, and gas infrastructure with 24/7 support.' 
   },
   { 
-    icon: '📦', 
+    icon: Package,
     title: 'Procurement & Logistics', 
     description: 'Global sourcing, procurement, supply chain management, and logistics coordination for critical infrastructure equipment.' 
   },
@@ -50,8 +51,11 @@ export default function Services() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-px bg-border-dark md:border md:border-border-dark md:rounded-lg md:overflow-hidden">
-        {services.map((service, index) => (
-          <motion.div
+        {services.map((service, index) => {
+          const Icon = service.icon;
+
+          return (
+            <motion.div
             key={index}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,14 +63,15 @@ export default function Services() {
             viewport={{ once: true }}
             className="group bg-card-bg p-6 md:p-9 cursor-default relative overflow-hidden hover:bg-[#141E28] transition-colors duration-300 rounded-lg md:rounded-none"
           >
-            <div className="w-12 h-12 bg-amber-energy/5 border border-amber-energy/20 rounded-md flex items-center justify-center mb-4 md:mb-6 text-[1.4rem]">
-              {service.icon}
+            <div className="w-12 h-12 bg-amber-energy/5 border border-amber-energy/20 rounded-md flex items-center justify-center mb-4 md:mb-6">
+              <Icon className="w-6 h-6" aria-hidden="true" />
             </div>
             <h3 className="text-[1rem] md:text-[1.15rem] font-bold mb-2 md:mb-3 tracking-[-0.01em]">{service.title}</h3>
             <p className="text-[0.8rem] md:text-[0.875rem] text-grey-energy leading-[1.5] md:leading-[1.65] font-light">{service.description}</p>
             <span className="block mt-4 md:mt-6 text-amber-energy text-[1.2rem] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* View All Services Button - ADD THIS */}

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 
 const contactDetails = [
-  { icon: '📍', label: 'Office', value: 'Plot 4&5 NERDC Road, Lagos, Nigeria' },
-  { icon: '📞', label: 'Phone', value: '+234 800 000 0000' },
-  { icon: '✉️', label: 'Email', value: 'fiysamenergy@gmail.com' },
-  { icon: '🕐', label: 'Hours', value: 'Mon–Fri, 8AM – 6PM WAT' },
+  { icon: MapPin, label: 'Office', value: 'Plot 4&5 NERDC Road, Lagos, Nigeria' },
+  { icon: Phone, label: 'Phone', value: '+234 800 000 0000' },
+  { icon: Mail, label: 'Email', value: 'fiysamenergy@gmail.com' },
+  { icon: Clock, label: 'Hours', value: 'Mon–Fri, 8AM – 6PM WAT' },
 ];
 
 export default function Contact() {
@@ -83,17 +84,21 @@ export default function Contact() {
           </p>
 
           <div className="flex flex-col gap-4 md:gap-5">
-            {contactDetails.map((detail, index) => (
-              <div key={index} className="flex gap-3 md:gap-4 items-start">
-                <div className="w-8 h-8 md:w-9 md:h-9 bg-amber-energy/5 border border-amber-energy/20 rounded flex items-center justify-center text-[0.9rem] flex-shrink-0">
-                  {detail.icon}
+            {contactDetails.map((detail, index) => {
+              const Icon = detail.icon;
+
+              return (
+                <div key={index} className="flex gap-3 md:gap-4 items-start">
+                  <div className="w-8 h-8 md:w-9 md:h-9 bg-amber-energy/5 border border-amber-energy/20 rounded flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-4 h-4" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <strong className="block text-[0.75rem] md:text-[0.8rem] text-grey-energy font-medium mb-0.5">{detail.label}</strong>
+                    <span className="text-[0.85rem] md:text-[0.9rem] text-light-energy">{detail.value}</span>
+                  </div>
                 </div>
-                <div>
-                  <strong className="block text-[0.75rem] md:text-[0.8rem] text-grey-energy font-medium mb-0.5">{detail.label}</strong>
-                  <span className="text-[0.85rem] md:text-[0.9rem] text-light-energy">{detail.value}</span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

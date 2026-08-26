@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 
 const points = [
   { num: '01', title: 'Local Knowledge, Global Standards', description: 'We understand Nigerian terrain, regulations, and stakeholders while applying internationally benchmarked engineering standards on every project.' },
@@ -30,7 +31,9 @@ export default function WhyUs() {
             <ul className="flex flex-col gap-2 md:gap-3.5 list-none">
               {checklist.map((item, index) => (
                 <li key={index} className="flex items-center gap-2 md:gap-3 text-[0.8rem] md:text-[0.9rem] text-light-energy">
-                  <span className="w-5 h-5 bg-amber-energy/5 rounded-full flex items-center justify-center text-amber-energy font-bold text-[0.85rem] flex-shrink-0">✓</span>
+                  <span className="w-5 h-5 bg-amber-energy/5 rounded-full flex items-center justify-center text-amber-energy flex-shrink-0">
+                    <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                  </span>
                   {item}
                 </li>
               ))}

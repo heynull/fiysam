@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
 
 const testimonials = [
   {
@@ -41,7 +42,11 @@ export default function Testimonials() {
             viewport={{ once: true }}
             className="bg-card-bg border border-border-dark rounded-lg p-6 md:p-9"
           >
-            <div className="text-amber-energy text-[0.85rem] md:text-[0.9rem] tracking-[2px] mb-4 md:mb-5">★★★★★</div>
+            <div className="flex items-center gap-0.5 text-amber-energy mb-4 md:mb-5" role="img" aria-label="5 out of 5 stars">
+              {Array.from({ length: 5 }, (_, star) => (
+                <Star key={star} className="w-3 h-3 md:w-3.5 md:h-3.5" fill="currentColor" aria-hidden="true" />
+              ))}
+            </div>
             <p className="text-[0.85rem] md:text-[0.9rem] text-light-energy leading-[1.6] md:leading-[1.75] mb-6 md:mb-7 italic font-light">{testimonial.text}</p>
             <div className="flex items-center gap-3 md:gap-3.5">
               <div className="w-10 h-10 rounded-full bg-amber-energy/5 border border-amber-energy/30 flex items-center justify-center font-syne font-bold text-[0.85rem] text-amber-energy">

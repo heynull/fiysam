@@ -3,14 +3,14 @@
 import { useState, useMemo } from "react";
 import CTABand from "../../components/CTABand";
 import BackNavigation from '../../components/BackNavigation';
-import { X, Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, Droplets, Flame, HardHat, Package, Wrench, X, Search, ChevronDown, ChevronUp, Zap } from 'lucide-react';
 
 // Full services list with categories
 const allServices = [
   // Power Services
   {
     id: 1,
-    icon: "⚡",
+    icon: Zap,
     title: "Independent Power Production (IPP)",
     description:
       "Development and operation of gas-fired and hybrid power plants for industrial, commercial, and utility clients.",
@@ -26,7 +26,7 @@ const allServices = [
   },
   {
     id: 2,
-    icon: "⚡",
+    icon: Zap,
     title: "Embedded & Captive Power",
     description:
       "Custom power solutions for industrial parks, manufacturing facilities, and residential estates.",
@@ -42,7 +42,7 @@ const allServices = [
   },
   {
     id: 3,
-    icon: "⚡",
+    icon: Zap,
     title: "Renewable Energy Integration",
     description:
       "Solar and hybrid energy systems designed to complement existing power infrastructure.",
@@ -58,7 +58,7 @@ const allServices = [
   },
   {
     id: 4,
-    icon: "⚡",
+    icon: Zap,
     title: "Power Infrastructure Development",
     description:
       "Design, construction, and maintenance of power distribution networks and substations.",
@@ -75,7 +75,7 @@ const allServices = [
   // Water Services
   {
     id: 5,
-    icon: "💧",
+    icon: Droplets,
     title: "Potable Water Treatment",
     description:
       "Design and operation of water treatment plants for drinking water and municipal supply.",
@@ -91,7 +91,7 @@ const allServices = [
   },
   {
     id: 6,
-    icon: "💧",
+    icon: Droplets,
     title: "Industrial Water Systems",
     description:
       "Process water treatment and distribution for manufacturing, oil & gas, and industrial applications.",
@@ -107,7 +107,7 @@ const allServices = [
   },
   {
     id: 7,
-    icon: "💧",
+    icon: Droplets,
     title: "Desalination & Water Recycling",
     description:
       "Advanced desalination and water recycling solutions for water-scarce regions.",
@@ -123,7 +123,7 @@ const allServices = [
   },
   {
     id: 8,
-    icon: "💧",
+    icon: Droplets,
     title: "Wastewater Treatment",
     description:
       "Treatment, recycling, and reuse of wastewater for industrial and municipal clients.",
@@ -140,7 +140,7 @@ const allServices = [
   // Gas Services
   {
     id: 9,
-    icon: "🔥",
+    icon: Flame,
     title: "Natural Gas Supply & Aggregation",
     description:
       "Reliable gas supply and aggregation services for industrial and power generation clients.",
@@ -156,7 +156,7 @@ const allServices = [
   },
   {
     id: 10,
-    icon: "🔥",
+    icon: Flame,
     title: "CNG & LNG Solutions",
     description:
       "Compressed and liquefied natural gas solutions for transportation, industrial, and power applications.",
@@ -172,7 +172,7 @@ const allServices = [
   },
   {
     id: 11,
-    icon: "🔥",
+    icon: Flame,
     title: "Gas-to-Power Projects",
     description:
       "End-to-end gas-to-power infrastructure development and project management.",
@@ -188,7 +188,7 @@ const allServices = [
   },
   {
     id: 12,
-    icon: "🔥",
+    icon: Flame,
     title: "Gas Infrastructure Development",
     description:
       "Pipeline, metering, storage, and distribution infrastructure for natural gas.",
@@ -205,7 +205,7 @@ const allServices = [
   // Other Services
   {
     id: 13,
-    icon: "🏗️",
+    icon: HardHat,
     title: "EPC Contracting",
     description:
       "End-to-end engineering, procurement, and construction for infrastructure projects.",
@@ -221,7 +221,7 @@ const allServices = [
   },
   {
     id: 14,
-    icon: "🔧",
+    icon: Wrench,
     title: "Operations & Maintenance",
     description:
       "24/7 operations, maintenance, and asset management for power, water, and gas facilities.",
@@ -237,7 +237,7 @@ const allServices = [
   },
   {
     id: 15,
-    icon: "📦",
+    icon: Package,
     title: "Procurement & Logistics",
     description:
       "Global sourcing, procurement, and supply chain management for infrastructure equipment.",
@@ -285,6 +285,8 @@ export default function ServicesPage() {
 
     return services;
   }, [selectedCategory, searchQuery]);
+
+  const SelectedServiceIcon = selectedService?.icon;
 
   return (
     <>
@@ -339,14 +341,17 @@ export default function ServicesPage() {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredServices.map((service) => (
-            <div
+          {filteredServices.map((service) => {
+            const Icon = service.icon;
+
+            return (
+              <div
               key={service.id}
               onClick={() => setSelectedService(service)}
               className="group bg-card-bg border border-border-dark rounded-lg p-6 md:p-8 hover:border-amber-energy/30 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
             >
-              <div className="w-12 h-12 bg-amber-energy/5 border border-amber-energy/20 rounded-md flex items-center justify-center mb-4 text-[1.4rem]">
-                {service.icon}
+              <div className="w-12 h-12 bg-amber-energy/5 border border-amber-energy/20 rounded-md flex items-center justify-center mb-4">
+                <Icon className="w-6 h-6" aria-hidden="true" />
               </div>
               <h3 className="text-[1rem] md:text-[1.1rem] font-bold mb-2">
                 {service.title}
@@ -360,8 +365,9 @@ export default function ServicesPage() {
                   →
                 </span>
               </div>
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
 
         {/* No results message */}
@@ -394,8 +400,8 @@ export default function ServicesPage() {
 
             {/* Service Detail Content */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 bg-amber-energy/5 border border-amber-energy/20 rounded-xl flex items-center justify-center text-3xl">
-                {selectedService.icon}
+              <div className="w-16 h-16 bg-amber-energy/5 border border-amber-energy/20 rounded-xl flex items-center justify-center">
+                {SelectedServiceIcon && <SelectedServiceIcon className="w-8 h-8" aria-hidden="true" />}
               </div>
               <div>
                 <span className="text-xs font-semibold tracking-wide uppercase text-amber-energy">
@@ -427,7 +433,7 @@ export default function ServicesPage() {
                         key={index}
                         className="flex items-center gap-2 text-sm text-light-energy"
                       >
-                        <span className="text-amber-energy">✓</span>
+                        <Check className="w-4 h-4 text-amber-energy flex-shrink-0" aria-hidden="true" />
                         {benefit}
                       </li>
                     ))}

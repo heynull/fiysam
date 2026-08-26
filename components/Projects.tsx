@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Fuel, Wrench, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 const projects = [
@@ -8,7 +9,7 @@ const projects = [
     title: 'Niger Delta Flow Station Upgrade',
     description: 'Complete engineering overhaul and capacity expansion of a 20,000 bopd flow station including gas flare reduction systems.',
     tag: 'Oil & Gas',
-    icon: '🛢️',
+    icon: Fuel,
     meta: '₦4.2B Contract Value',
     location: 'Delta State, 2023',
     bg: 'bg-gradient-to-br from-[#1a2530] to-[#0d1520]',
@@ -17,7 +18,7 @@ const projects = [
     title: '5MW Industrial Power Plant',
     description: 'Design and installation of gas-powered generation facility for a manufacturing complex in Ogun State.',
     tag: 'Power',
-    icon: '⚡',
+    icon: Zap,
     meta: 'EPC Contract',
     location: 'Ogun State, 2022',
     bg: 'bg-gradient-to-br from-[#1a1e14] to-[#0d1208]',
@@ -26,7 +27,7 @@ const projects = [
     title: '12" Crude Trunk Line, 45km',
     description: 'Full pipeline design, procurement, and installation including cathodic protection and SCADA integration.',
     tag: 'Pipeline',
-    icon: '🔧',
+    icon: Wrench,
     meta: 'Integrity Certified',
     location: 'Rivers State, 2023',
     bg: 'bg-gradient-to-br from-[#1a1518] to-[#100c0e]',
@@ -45,8 +46,11 @@ export default function Projects() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr] gap-5">
-        {projects.map((project, index) => (
-          <motion.div
+        {projects.map((project, index) => {
+          const Icon = project.icon;
+
+          return (
+            <motion.div
             key={index}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +59,9 @@ export default function Projects() {
             className="group bg-card-bg border border-border-dark rounded-lg overflow-hidden hover:-translate-y-1 hover:border-amber-energy/30 transition-all duration-300"
           >
             <div className={`relative h-[200px] md:h-[220px] ${index === 0 ? 'md:h-[320px]' : ''} ${project.bg} flex items-center justify-center overflow-hidden`}>
-              <div className="absolute inset-0 flex items-center justify-center text-5xl opacity-10">{project.icon}</div>
+              <div className="absolute inset-0 flex items-center justify-center text-5xl opacity-10">
+                <Icon className="w-16 h-16" aria-hidden="true" />
+              </div>
               <div className="absolute top-4 left-4 bg-obsidian/80 border border-amber-energy/30 px-3 py-1 rounded text-[0.7rem] font-semibold tracking-[0.08em] uppercase text-amber-energy">
                 {project.tag}
               </div>
@@ -68,8 +74,9 @@ export default function Projects() {
                 <span>{project.location}</span>
               </div>
             </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
