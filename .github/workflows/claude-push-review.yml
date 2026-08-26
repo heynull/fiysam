@@ -1,0 +1,57 @@
+name: Claude Push Review
+
+on: push: branches: - main - master
+
+permissions: contents: read
+
+jobs: claude-review: runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+
+      - name: Run Claude review
+        id: claude-review
+        uses: anthropics/claude-code-base-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          max_turns: "6"
+          allowed_tools: "View,GlobTool,GrepTool,Bash(git diff --no-ext-diff HEAD^ HEAD),Bash(git diff --name-only HEAD^ HEAD),Bash(git status --short)"
+          prompt: |
+            You are performing an automated review of the latest push to the Fiysam repository.
+
+            Review only the changes introduced by the latest commit:
+            HEAD^..HEAD
+
+            The repository contains CLAUDE.md and .claude/ rules and skills. Read and follow the relevant repository guidance before reviewing.
+
+            Your task is review-only. Do not modify, create, delete, commit, or push files.
+
+            Inspect the actual diff and the surrounding implementation when necessary.
+
+            Report only confirmed findings. Do not report guesses, hypothetical concerns, or stylistic preferences as defects.
+
+            Prioritize:
+            1. Bugs and regressions
+            2. Security issues
+            3. Incorrect Next.js/React behavior
+            4. TypeScript errors or unsafe typing
+            5. Accessibility problems
+            6. Broken responsive behavior
+            7. Performance problems
+            8. Incorrect repository conventions or architecture
+
+            For every finding, include:
+            - Severity: Critical, High, Medium, or Low
+            - File path
+            - Line number or line range
+            - What is wrong
+            - Why it is a confirmed problem
+            - A concise recommended fix
+
+            If there are no confirmed findings, say exactly:
+            "No confirmed findings."
+
+            Do not implement fixes.
