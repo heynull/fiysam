@@ -1,14 +1,29 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Hero() {
   return (
     <section className="min-h-screen flex flex-col justify-center px-5 md:px-[60px] pt-32 pb-16 md:pt-[140px] md:pb-20 relative overflow-hidden">
-      <div className="absolute inset-0 hero-grid-lines pointer-events-none" />
+      <div className="absolute inset-0 z-[1] hero-grid-lines pointer-events-none" />
+
+      <div className="absolute inset-y-0 right-0 hidden w-[62%] md:block lg:w-[60%]" aria-hidden="true">
+        <Image
+          src="/fiysam-energy-facility-hero.png"
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 1024px) 60vw, 62vw"
+          className="object-cover object-right"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-obsidian via-obsidian/80 via-[38%] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-obsidian/50 via-transparent to-obsidian/90" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-obsidian to-transparent" />
+      </div>
       
-      <div className="max-w-full md:max-w-[50%]">
+      <div className="relative z-10 max-w-full md:max-w-[50%]">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -16,7 +31,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 text-[0.7rem] md:text-[0.75rem] font-medium tracking-[0.12em] uppercase text-amber-energy mb-4 md:mb-6 px-3.5 py-1.5 border border-amber-energy/30 rounded"
         >
           <span className="w-1.5 h-1.5 bg-amber-energy rounded-full animate-pulse-slow" />
-          Nigeria & West Africa's Integrated Infrastructure Partner
+          Nigeria & West Africa&apos;s Integrated Infrastructure Partner
         </motion.div>
         
         <motion.h1 
@@ -50,10 +65,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Hero Visual - hidden on mobile */}
-      <div className="hidden md:block relative mt-12 md:mt-0">
-        {/* ... keep existing hero visual code ... */}
-      </div>
     </section>
   );
 }
