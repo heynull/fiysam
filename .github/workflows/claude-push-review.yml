@@ -1,10 +1,17 @@
 name: Claude Push Review
 
-on: push: branches: - main - master
+'on':
+  push:
+    branches:
+      - main
+      - master
 
-permissions: contents: read
+permissions:
+  contents: read
 
-jobs: claude-review: runs-on: ubuntu-latest
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
